@@ -27,8 +27,9 @@ def main():
     Player.containers = (updatable, drawable)
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-
+    score = 0
     dt = 0
+    font = pygame.font.Font(None, 36)   
 
     while True:
         log_state()
@@ -45,6 +46,7 @@ def main():
                     log_event("asteroid_shot")  # Log the event
                     asteroid.split()  # Remove the asteroid
                     shot.kill()
+                    score += 10
 
     
 
@@ -55,6 +57,13 @@ def main():
                 sys.exit()
 
         screen.fill("black")
+
+        # Render and display the score
+        score_text = font.render(f"Score: {score}", True, (255, 255, 255))
+
+        screen.blit(score_text, (SCREEN_WIDTH - score_text.get_width() - 20, SCREEN_HEIGHT - score_text.get_height() - 20))
+          
+        
 
         for obj in drawable:
             obj.draw(screen)
